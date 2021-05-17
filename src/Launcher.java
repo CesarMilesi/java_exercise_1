@@ -7,6 +7,7 @@ public class Launcher
         Scanner scanner = new Scanner(System.in);
         if (scanner.nextLine().equals("fibo"))
         {
+            System.out.println("Input a number :");
             var number = scanner.nextInt();
             scanner.nextLine();
             System.out.println(fibo(number));

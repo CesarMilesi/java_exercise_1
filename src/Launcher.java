@@ -5,13 +5,9 @@ public class Launcher
     public static void main(String[] args)
     {
         Scanner scanner = new Scanner(System.in);
-        var user = scanner.nextLine();
-        switch (user)
+        while(!scanner.nextLine().equals("quit"))
         {
-            case "quit":
-                break;
-            default:
-                System.out.println("Unknown command");
+            System.out.println("Unknown command");
         }
     }
 }

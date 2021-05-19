@@ -22,16 +22,12 @@ public class Launcher
             else
             {
                 var array = Array(command);
-                System.out.println();
-                for (int i = 0; i < array.length; i++)
-                {
-                    System.out.print(array[i] + " ");
-                }
+                System.out.println(array);
             }
         }
     }
 
-    public static String[] Array(Path path)
+    public static String Array(Path path)
     {
         String[] words = new String[100];
         try
@@ -47,15 +43,15 @@ public class Launcher
         Map<String, Long> collectbis = wordStream
                 .filter(s -> !s.isBlank())
                 .map(s -> s.toLowerCase())
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                .collect(Collectors.groupingBy(s -> s, Collectors.counting()));
 
-        Comparator<Map.Entry<String, Long>> count = Comparator.<Map.Entry<String, Long>, Long>comparing(e ->e.getValue())
-                .reversed();
-        String[] threecounting = collectbis.entrySet().stream()
-                .sorted(count)
+        Function<Map.Entry<String, Long>, Long> count = c -> c.getValue();
+
+        String threecounting = collectbis.entrySet().stream()
+                .sorted(Comparator.comparing(count).reversed())
                 .limit(3)
                 .map (e -> e.getKey())
-                .collect(Collectors.joining(" ")).split(" ");
+                .collect(Collectors.joining(" "));
         return threecounting;
     }
 
